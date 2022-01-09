@@ -2,6 +2,10 @@ html,body{
     margin: 0px;
     border: 0px;
     padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
 
 }
 
@@ -10,7 +14,6 @@ html,body{
     width: 700px;
     height: 700px;
     background-color: black;
-    margin-left: 10vw;
     display: flex;
     flex-wrap: wrap;
 }
@@ -37,4 +40,36 @@ html,body{
 
 #controls-content button {
     font-size: 1.5rem;
+}
+
+/* Desk */
+@media (min-width:1200px){
+    body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: red;
+        
+    }
+    #map{
+    padding:0px !important;
+    width: 90vh;
+    height: 90vh;
+    background-color: black;
+    display: flex;
+    flex-wrap: wrap;
+}
+    }
+    #game-content{ 
+        margin: 0 auto;
+        background-color: pink;
+        display: flex;
+    }
+    #controls-content{
+        display: block;
+    }
+    #data-content{
+        padding: 100px;
+        background-color: orange;
+    }
 }

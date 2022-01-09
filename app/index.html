@@ -13,25 +13,26 @@
 </head>
 <body id="myBody" onload="init()">
     <div id="game-content">
-        <p id="nBlocks"></p>
         <div id="map"></div>
-<br><br><br>
      
-        <div id="controls-content">
-            <center>
-            <button onclick="controls('y0')"> ⬆️ </button><br>
-            <div>
-                <button onclick="controls('x0')"> ⬅️ </button>
-                <button onclick="controls('x1')"> ➡️ </button>
+        <div id="data-content">       
+            <p id="nBlocks"></p>
+            <div id="controls-content">
+                <center>
+                <button onclick="controls('y0')"> ⬆️ </button><br>
+                <div>
+                    <button onclick="controls('x0')"> ⬅️ </button>
+                    <button onclick="controls('x1')"> ➡️ </button>
+                </div>
+                <button onclick="controls('y1')"> ⬇️ </button>
+                </center>          
             </div>
-            <button onclick="controls('y1')"> ⬇️ </button>
-            </center>          
+
+            <button onclick="startGame(true)">start</button>
+            <button onclick="startGame(false)">stop</button>
+            <button onclick="reMap()">remap</button>
+
         </div>
-
-        <br><br>
-        <button onclick="startGame(true)">start</button>
-        <button onclick="startGame(false)">stop</button>
-
     </div>
 </body>
 </html>

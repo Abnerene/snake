@@ -1,5 +1,7 @@
 var myBody;
 var map;
+var sizeMap=3;
+
 
 async function init() {
   myBody = getEID("myBody");
@@ -10,10 +12,10 @@ async function init() {
 }
 
 var limitLine = 0;
+
 function Map(option) {
-  map.innerHTML = "";
-  arraySize = squareList[option];
-  
+ 
+  arraySize = squareList[sizeMap];
   getEID("nBlocks").innerHTML = arraySize + " Blocks";
   s = 0;
   mapHeigth = map.offsetHeight;
@@ -21,13 +23,15 @@ function Map(option) {
 
   blockSize = mapHeigth / Math.sqrt(arraySize);
   limitLine = Math.sqrt(arraySize);
+  console.log(limitLine)
   var xPos = 0;
   var yPos = 0;
+  var lastBlock=0;
   limit = 0;
 
   while (s < arraySize) {
-    bgColor = `${getRandom(0)},${getRandom(255)},${getRandom(1)}`;
-    block = nElement("div", map);
+    bgColor = `${getRandom(0)},${getRandom(2)},${getRandom(255)}`;
+    block = newElement("div");
     block.setAttribute("class", "blockFree");
     block.style.width = blockSize + "px";
     block.style.height = blockSize + "px";
@@ -39,14 +43,40 @@ function Map(option) {
     }
     idBlock = "block-" + xPos + "-" + yPos;
     block.setAttribute("id", idBlock);
+    
+    if(!getEID(idBlock)){  
+    
+      if(lastBlock!=0 ){     
+        insertAfter(block,getEID(lastBlock)) 
+      
+      }else{
+        addElement(map,block); 
+      }
+    
+   
+      
+    }else{
+      getEID(idBlock).style.width = blockSize + "px";
+      getEID(idBlock).style.height = blockSize + "px";
+    
+    }
+    lastBlock=idBlock
     xPos++;
     s++;
+
+
   }
  
 }
+function insertAfter(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
 
-function reMap(){
-
+async function reMap(){
+ startGame(false);
+ sizeMap++;
+ await Map(sizeMap);
+ startGame(true) 
 }
 
 var Snake = {
@@ -58,6 +88,7 @@ var Snake = {
   tail: "block-0-0",
   body: [],
   size: 2,
+  speed:1000
 };
 
 var moveOn = {
@@ -88,13 +119,15 @@ function moveSnake() {
   if (getEID(block)) {
     getEID(block).setAttribute("class", "snakeBlock");
     if(block == Food.block){
+        Snake.speed -=50
+        reMap()
         newFood()
         snakeSize=Snake.size
         Snake.size+= 1
     }
-    if(block == getEID(block).getAttribute('class','snakeBlock')  ){
-        gameOver()
-    }
+    // if(block == getEID(block).getAttribute('class','snakeBlock')  ){
+    //     gameOver()
+    // }
     Snake.body.push( "block-" + xPos + "-" + yPos);
     snakeSize++;
 
@@ -170,7 +203,7 @@ var gameClock = 0;
 
 function startGame(status) {
   if (status) {
-    gameClock = setInterval(updateMap, 100);
+    gameClock = setInterval(updateMap, Snake.speed);
   } else {
     clearInterval(gameClock);
   }
@@ -180,12 +213,15 @@ function resetGame() {
   Snake.position.x = 0;
   Snake.position.y = 0;
   Snake.body=[];
+  Snake.speed=1000
   snakeSize=1;
   moveOn.x0 = false;
   moveOn.x1 = true;
   moveOn.y0 = false;
   moveOn.y1 = false;
-  Map(100);
+  map.innerHTML = "";
+  sizeMap=3
+  Map();
   newFood()
 }
 
