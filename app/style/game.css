@@ -1,0 +1,36 @@
+html,body{
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+
+}
+
+#map{
+    padding:0px;
+    width: 80vw;
+    height: 80vw;
+    background-color: black;
+    margin-left: 10vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.blockFree{
+    display: block;
+ 
+}
+
+.snakeBlock{
+    background: red !important;
+}
+
+#controls-content{
+    display: ;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+#controls-content button {
+    font-size: 1.5rem;
+}
