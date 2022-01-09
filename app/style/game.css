@@ -24,6 +24,10 @@ html,body{
     background: red !important;
 }
 
+.foodBlock{
+    background: green !important;
+}
+
 #controls-content{
     display: ;
     align-items: center;
