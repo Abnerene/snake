@@ -93,27 +93,35 @@ function moveSnake() {
         console.log(Snake.body[0])
         console.log(Snake.body)
     }
+    if(block == getEID(block).getAttribute('class','snakeBlock')  ){
+        gameOver()
+    }
     Snake.body.push( "block-" + xPos + "-" + yPos);
     snakeSize++;
 
   } else {
-    alert("GameOver");
-    startGame(false);
-    resetGame();
+    gameOver();
   }
 
   
 }
 
+function gameOver(){
+    alert("GameOver");
+    startGame(false);
+    resetGame();
+}
+
 var Food={
     block:''
 };
+
 function newFood(){
 
     while(true){
     xPos=getRandom(limitLine)-1;
     yPos=getRandom(limitLine)-1;
-    block=getEID('block-'+xPos+'-'+yPos);
+    var block=getEID('block-'+xPos+'-'+yPos);
 
         if(block.getAttribute('class')!='snakeBlock' ){
             block.setAttribute('class','foodBlock');
@@ -161,6 +169,7 @@ function startGame(status) {
 function resetGame() {
   Snake.position.x = 0;
   Snake.position.y = 0;
+  Snake.body=[];
   Map();
   newFood()
 }
