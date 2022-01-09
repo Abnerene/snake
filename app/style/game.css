@@ -7,8 +7,8 @@ html,body{
 
 #map{
     padding:0px;
-    width: 80vw;
-    height: 80vw;
+    width: 700px;
+    height: 700px;
     background-color: black;
     margin-left: 10vw;
     display: flex;

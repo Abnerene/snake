@@ -4,16 +4,15 @@ var map;
 async function init() {
   myBody = getEID("myBody");
   map = getEID("map");
-  
-  await Map();
-  newFood()
+  getSquareList(999)
+  console.log(squareList);
+  resetGame()
 }
 
 var limitLine = 0;
-function Map() {
+function Map(option) {
   map.innerHTML = "";
-  optionsSize = [1, 4, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169];
-  arraySize = optionsSize[5];
+  arraySize = squareList[option];
   
   getEID("nBlocks").innerHTML = arraySize + " Blocks";
   s = 0;
@@ -27,7 +26,7 @@ function Map() {
   limit = 0;
 
   while (s < arraySize) {
-    bgColor = `${getRandom(2)},${getRandom(0)},${getRandom(255)}`;
+    bgColor = `${getRandom(0)},${getRandom(255)},${getRandom(1)}`;
     block = nElement("div", map);
     block.setAttribute("class", "blockFree");
     block.style.width = blockSize + "px";
@@ -44,6 +43,10 @@ function Map() {
     s++;
   }
  
+}
+
+function reMap(){
+
 }
 
 var Snake = {
@@ -76,7 +79,6 @@ function moveSnake() {
 
   if (snakeSize > Snake.size ) {
     if(Snake.body[0]){
-        console.log(Snake.body[0]);
         resetBlock(Snake.body[0]);
         Snake.body.shift();
     }
@@ -89,9 +91,6 @@ function moveSnake() {
         newFood()
         snakeSize=Snake.size
         Snake.size+= 1
-        console.log(Snake.size)
-        console.log(Snake.body[0])
-        console.log(Snake.body)
     }
     if(block == getEID(block).getAttribute('class','snakeBlock')  ){
         gameOver()
@@ -135,10 +134,21 @@ function newFood(){
 function resetBlock(block) {
   block = getEID(block);
   if(block){
-    block.style.background = randomColor();
+    block.style.background = "rgb(255,255,0)";
     block.setAttribute("class", "blockFree");
   }
 }
+
+
+
+document.addEventListener('keydown', (event) => {
+    const keyName = event.key;
+    if(keyName == 'ArrowLeft') controls('x0')
+    if(keyName == 'ArrowRight') controls('x1')
+    if(keyName == 'ArrowUp') controls('y0')
+    if(keyName == 'ArrowDown') controls('y1')    
+  });
+
 
 function controls(value) {
   // console.log(value);
@@ -160,7 +170,7 @@ var gameClock = 0;
 
 function startGame(status) {
   if (status) {
-    gameClock = setInterval(updateMap, 1000);
+    gameClock = setInterval(updateMap, 100);
   } else {
     clearInterval(gameClock);
   }
@@ -170,7 +180,12 @@ function resetGame() {
   Snake.position.x = 0;
   Snake.position.y = 0;
   Snake.body=[];
-  Map();
+  snakeSize=1;
+  moveOn.x0 = false;
+  moveOn.x1 = true;
+  moveOn.y0 = false;
+  moveOn.y1 = false;
+  Map(100);
   newFood()
 }
 
@@ -179,4 +194,15 @@ function resetGame() {
 function randomColor() {
   bgColor = `${getRandom(2)},${getRandom(0)},${getRandom(255)}`;
   return bgColor;
+}
+
+var squareList=[]
+
+function getSquareList(limit){
+    x=1;
+    while(x<limit){
+        square= x * x ;
+        squareList.push(square)
+        x++
+    }    
 }
