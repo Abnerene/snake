@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake</title>
+    <link rel="stylesheet" type="text/css" href="style/game.css">
+    <script type="text/javascript" src="js/game.js"></script>
+    <script type="text/javascript" src="https://photoleongraduaciones.com/dynamicmode/js/tools.js?n=690"></script>
+   
+
+</head>
+<body id="myBody" onload="init()">
+    <div id="game-content">
+        <p id="nBlocks"></p>
+        <div id="map">
+
+        </div>
+
+     
+        <div id="controls-content">
+            <center>
+            <button onclick="controls('y0')"> ⬆️ </button><br>
+            <div>
+                <button onclick="controls('x0')"> ⬅️ </button>
+                <button onclick="controls('x1')"> ➡️ </button>
+            </div>
+            <button onclick="controls('y1')"> ⬇️ </button>
+            </center>          
+        </div>
+
+        <br><br>
+        <button onclick="startGame(true)">start</button>
+        <button onclick="startGame(false)">stop</button>
+
+    </div>
+</body>
+</html>
